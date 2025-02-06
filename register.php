@@ -10,6 +10,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
+    $validRoles = ['member', 'admin']; // Example roles, adjust as needed
+    if (!in_array($role, $validRoles)) {
+        echo "Invalid role specified!";
+        exit();
+    }
+
+
     $conn = new mysqli('127.0.0.1', 'root', '', 'community');
 
     if ($conn->connect_error) {
@@ -21,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($stmt->execute()) {
         header("Refresh: 2; url=sign-in.html");
-        echo "Registration successful! Redirecting to the Login page in.";
+        // echo "Registration successful! Redirecting to the Login page in.";
         exit();
     } else {
         echo "Error: " . $stmt->error;
